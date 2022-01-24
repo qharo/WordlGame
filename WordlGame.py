@@ -46,7 +46,7 @@ class WordlGame:
                 else:
                     raw.append((answer[char], 0))
             else:
-                raw.append((char, -1))
+                raw.append((answer[char], -1))
         self.chance -= 1
         self._outputify(raw)
         return raw
