@@ -1,4 +1,5 @@
 import random
+from selectors import EpollSelector
 import pandas as pd
 
 words = []
@@ -39,14 +40,27 @@ class WordlGame:
         
     def _evaluate(self, answer):
         raw = []
+        choice = self.choice
+        print(choice)
         for char in range(len(answer)):
-            if answer[char] in self.choice:
-                if answer[char] == self.choice[char]:
-                    raw.append((answer[char], 1))
-                else:
-                    raw.append((answer[char], 0))
-            else:
+            print(choice)
+            if answer[char] not in choice:
                 raw.append((answer[char], -1))
+            elif answer[char] == self.choice[char]:
+                print("1 case")
+                raw.append((answer[char], 1))
+                choice = choice.replace(answer[char], '')
+            else:
+                print("0 case")
+                raw.append((answer[char], 0))
+                choice = choice.replace(answer[char],'')
+            # if answer[char] in self.choice:
+            #     if answer[char] == self.choice[char]:
+            #         raw.append((answer[char], 1))
+            #     else:
+            #         raw.append((answer[char], 0))
+            # else:
+            #     raw.append((answer[char], -1))
         self.chance -= 1
         self._outputify(raw)
         return raw
@@ -54,6 +68,18 @@ class WordlGame:
     def step(self, answer):
         answer = answer.lower().strip()
         raw = []
+        # if self._verifyAnswer(answer):
+        #     if answer == self.choice:
+        #         print("You won!")
+        #         return None, 1
+        #     elif self.chance == 0:
+        #         print("Game has ended! The word was {self.choice}")
+        #         return None, 1
+            
+        #     raw = self._evaluate(answer)
+        #     return raw, 0
+        # return raw, -1
+
         if self.chance == 0:
             print(f"Game has ended! The word was {self.choice}")
             return None, 1
