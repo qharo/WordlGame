@@ -12,8 +12,11 @@ class RegexPlayer:
     def __init__(self, words, length):
         self.words = list(filter(lambda v: re.match(r'^\w\w\w\w\w$', v), words))
         #self.words = list(filter(lambda v: re.match(".[h]", v), words))
-        self._outputify()
+        #self._outputify()
     
+    def reset(self):
+        pass
+
     def _outputify(self):
         print(self.words)
         print(f"Number of words: {len(self.words)}")
@@ -46,29 +49,41 @@ class RegexPlayer:
 
     def guess(self, raw):
         for char in range(len(raw)):
-            print(raw[char])
+            #print(len(self.words))
             if raw[char][1] == 0:
+                #print(f" RAW CHAR IS {raw[char][0]}")
                 self.words = [word for word in self.words if raw[char][0] in word]
             elif raw[char][1] == 1:
+                pass
                 self.words = list(filter(lambda x: x[char] == raw[char][0], self.words))
             else:
                 self.words = [word for word in self.words if raw[char][0] not in word]
         self._outputify()
-        #print(f"Your next guess must be: {self.words[random.randint(0, len(self.words))]}")
+        print(f"Your next guess must be: {self.words[random.randint(0, len(self.words))]}")
 
 
 
-env = WordlGame(words, 5, 3)
+env = WordlGame(words, 5, 6)
 player = RegexPlayer(words, 5)
 env.generate_word()
 inPlay = True
+manual = input("Enter M for Manual, A for auto: ")
 while inPlay:
     attempt = input("Attempt: ")
-    output, done = env.step(attempt)
-    if done != 0:
+    output = []
+    if manual == 'A':
+        output, done = env.step(attempt)
+    elif manual == 'M':
+        for char in attempt:
+            result = input(char + ': ')
+            output.append((char, int(result)))
+        done = input("Done: ")
+    print(output)
+    if int(done) != 0:
+        print("comes here")
         inPlay = False
     else:
         player.guess(output)
-
+# [('b', -1), ('u', -1), ('l', -1), ('g', -1), ('e', 0)]
 
 # test game

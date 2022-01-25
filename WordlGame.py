@@ -8,12 +8,10 @@ with open("tenKWords.txt") as line:
 words = words[:-1]
 
 class WordlGame:
+    # gets list of words and filters for length
     def __init__(self, words, length, chances):
-        # gets list of words and filters for length
-        print("----------------------------------\n\tWELCOME TO WORDL!")
-        print("----------------------------------")
-        print(f"     Length of the world: {length}\n     Number of attempts: {chances}")
-        print("//////////////////////////////////\n")
+        print(f"{''.join(['-']*35)}\n\tWELCOME TO WORDL!\n{''.join(['-']*35)}")
+        print(f"     Length of the world: {length}\n     Number of attempts: {chances}\n{''.join(['/']*35)}\n")
         self.numChances = chances
         self.chance = self.numChances
         self.words = [x for x in words if len(x) == length]
@@ -23,8 +21,8 @@ class WordlGame:
     def generate_word(self): self.choice = self.words[random.randint(0, len(self.words))]
     #def generate_word(self): self.choice = "hello"
     
+    # outputs raw file as clean text
     def _outputify(self, raw):
-        # outputs raw file as clean text
         output = ''
         for char in raw:
             letter = "_" if char[1] == -1 else char[0].lower() if char[1] == 0 else char[0].upper()
@@ -41,19 +39,19 @@ class WordlGame:
     def _evaluate(self, answer):
         raw = []
         choice = self.choice
-        print(choice)
+        #print(choice)
         for char in range(len(answer)):
-            print(choice)
+            #print(choice)
             if answer[char] not in choice:
                 raw.append((answer[char], -1))
             elif answer[char] == self.choice[char]:
-                print("1 case")
+                #print("1 case")
                 raw.append((answer[char], 1))
-                choice = choice.replace(answer[char], '')
+                #choice = choice.replace(answer[char], '')
             else:
-                print("0 case")
+                #print("0 case")
                 raw.append((answer[char], 0))
-                choice = choice.replace(answer[char],'')
+                #choice = choice.replace(answer[char],'')
             # if answer[char] in self.choice:
             #     if answer[char] == self.choice[char]:
             #         raw.append((answer[char], 1))
