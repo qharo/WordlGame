@@ -11,11 +11,11 @@ words = words[:-1]
 class RegexPlayer:
     def __init__(self, words, length):
         self.words = list(filter(lambda v: re.match(r'^\w\w\w\w\w$', v), words))
+        self.backupWords = self.words
         #self.words = list(filter(lambda v: re.match(".[h]", v), words))
         #self._outputify()
     
-    def reset(self):
-        pass
+    def reset(self): self.words = self.backupWords
 
     def _outputify(self):
         print(self.words)
@@ -50,16 +50,17 @@ class RegexPlayer:
     def guess(self, raw):
         for char in range(len(raw)):
             #print(len(self.words))
-            if raw[char][1] == 0:
+            if raw[char][1] == 1:
                 #print(f" RAW CHAR IS {raw[char][0]}")
                 self.words = [word for word in self.words if raw[char][0] in word]
-            elif raw[char][1] == 1:
+            elif raw[char][1] == 2:
                 pass
                 self.words = list(filter(lambda x: x[char] == raw[char][0], self.words))
             else:
                 self.words = [word for word in self.words if raw[char][0] not in word]
+        print("Options are: ")
         self._outputify()
-        print(f"Your next guess must be: {self.words[random.randint(0, len(self.words))]}")
+        #print(f"Your next guess must be: {self.words[random.randint(0, len(self.words))]}")
 
 
 
@@ -74,10 +75,11 @@ while inPlay:
     if manual == 'A':
         output, done = env.step(attempt)
     elif manual == 'M':
-        for char in attempt:
-            result = input(char + ': ')
-            output.append((char, int(result)))
         done = input("Done: ")
+        result = input("Enter coded result: ")
+        for char in range(len(attempt)):
+            #result = input(char + ': ')
+            output.append((attempt[char], int(result[char])))
     print(output)
     if int(done) != 0:
         print("comes here")

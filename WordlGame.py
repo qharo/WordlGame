@@ -3,9 +3,12 @@ from selectors import EpollSelector
 import pandas as pd
 
 words = []
-with open("tenKWords.txt") as line:
+with open("english2.txt") as line:
     words += line.read().split('\n')
-words = words[:-1]
+print(words)
+#words = words.split(' ')
+
+#print(words)
 
 class WordlGame:
     # gets list of words and filters for length
@@ -43,14 +46,14 @@ class WordlGame:
         for char in range(len(answer)):
             #print(choice)
             if answer[char] not in choice:
-                raw.append((answer[char], -1))
+                raw.append((answer[char], 0))
             elif answer[char] == self.choice[char]:
                 #print("1 case")
-                raw.append((answer[char], 1))
+                raw.append((answer[char], 2))
                 #choice = choice.replace(answer[char], '')
             else:
                 #print("0 case")
-                raw.append((answer[char], 0))
+                raw.append((answer[char], 1))
                 #choice = choice.replace(answer[char],'')
             # if answer[char] in self.choice:
             #     if answer[char] == self.choice[char]:
