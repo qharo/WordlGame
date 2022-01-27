@@ -15,3 +15,7 @@ Once the coded output is entered, you get the options to choose from.
 Entering -1 for attempt takes you back to the original menu.
 
 ---
+
+Future plans would be to create an RNN that learns the words and outputs based on the ENV responses. I don't think I yet have the expertise required, but efforts shall be made.
+
+---
