@@ -5,10 +5,7 @@ import pandas as pd
 words = []
 with open("english2.txt") as line:
     words += line.read().split('\n')
-print(words)
-#words = words.split(' ')
 
-#print(words)
 
 class WordlGame:
     # gets list of words and filters for length
@@ -22,9 +19,8 @@ class WordlGame:
     
     #randomly selects word
     def generate_word(self): self.choice = self.words[random.randint(0, len(self.words))]
-    #def generate_word(self): self.choice = "hello"
     
-    # outputs raw file as clean text
+    #outputs
     def _outputify(self, raw):
         output = ''
         for char in raw:
@@ -42,26 +38,13 @@ class WordlGame:
     def _evaluate(self, answer):
         raw = []
         choice = self.choice
-        #print(choice)
         for char in range(len(answer)):
-            #print(choice)
             if answer[char] not in choice:
                 raw.append((answer[char], 0))
             elif answer[char] == self.choice[char]:
-                #print("1 case")
                 raw.append((answer[char], 2))
-                #choice = choice.replace(answer[char], '')
             else:
-                #print("0 case")
                 raw.append((answer[char], 1))
-                #choice = choice.replace(answer[char],'')
-            # if answer[char] in self.choice:
-            #     if answer[char] == self.choice[char]:
-            #         raw.append((answer[char], 1))
-            #     else:
-            #         raw.append((answer[char], 0))
-            # else:
-            #     raw.append((answer[char], -1))
         self.chance -= 1
         self._outputify(raw)
         return raw
@@ -69,17 +52,6 @@ class WordlGame:
     def step(self, answer):
         answer = answer.lower().strip()
         raw = []
-        # if self._verifyAnswer(answer):
-        #     if answer == self.choice:
-        #         print("You won!")
-        #         return None, 1
-        #     elif self.chance == 0:
-        #         print("Game has ended! The word was {self.choice}")
-        #         return None, 1
-            
-        #     raw = self._evaluate(answer)
-        #     return raw, 0
-        # return raw, -1
 
         if self.chance == 0:
             print(f"Game has ended! The word was {self.choice}")
@@ -92,14 +64,3 @@ class WordlGame:
             return raw, 0
         else:
             return raw, -1
-
-
-
-# game = WordlGame(words, 5, 3)
-# game.generate_word()
-# done = False
-# game.step("yulle")
-# while not done:
-#     output, success = game.step("hello")
-#     if success == 1: done = True
-#     #print(output)
