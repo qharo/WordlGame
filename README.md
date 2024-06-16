@@ -1,21 +1,16 @@
 # WordlGame Solver
 
-Considering the rise of [Wordl](https://www.powerlanguage.co.uk/wordle/) and many [spin-offs](https://hellowordl.net/), I made a simple Python code to predict the answer, by filtering out from a dataset.
+This repository contains a Python-based solver for Wordl-like games. It uses a dataset to predict answers by filtering possible word options based on game feedback.
 
-On running StrPlayer.py, you can either choose M for Manual or A for Auto. Auto uses the WordlGame class, while Manual invovles manually keying in your interactions with any wordle game. 
+## Files
 
-The keying must be as follows:
+- **StrPlayer.py**: Script for playing the game either manually or automatically.
+- **WordlGame.py**: Core logic for the solver.
+- **english2.txt**, **english3.txt**: Text files containing possible word lists.
+- **README.md**: Describes the project and how to use the solver.
 
-0 represents the letter not existing in the word,
-1 represents the letter existing but not in the correct position,
-2 represents the letter existing and in the correct position. 
+## How to Use
 
-Once the coded output is entered, you get the options to choose from.
-
-Entering -1 for attempt takes you back to the original menu.
-
----
-
-Future plans would be to create an RNN that learns the words and outputs based on the ENV responses. I don't think I yet have the expertise required, but efforts shall be made.
-
----
+1. Run `StrPlayer.py`.
+2. Choose 'M' for Manual or 'A' for Auto mode.
+3. Follow instructions for entering feedback from the game.
